@@ -6,7 +6,7 @@ export class createBookUseCase {
 
   async execute(data: ICreateBookRequestDTO) {
     const { authors, cover_url, publisher, title } = data;
-    if (!authors || !cover_url || !publisher || !title) {
+    if (!authors || authors.length == 0 || !cover_url || !publisher || !title) {
       throw new Error("Missing required fields");
     }
 

@@ -1,4 +1,5 @@
 import { createBookUseCase } from "../modules/Book/createBook/createBookUseCase";
+import { deleteBookUseCase } from "../modules/Book/deleteBook/deleteBookUseCase";
 import { getBooksUseCase } from "../modules/Book/getBooks/getBooksUseCase";
 import { BookTestRepository, bookTest } from "./BookTestRepository";
 
@@ -6,6 +7,7 @@ const bookTestRepo = new BookTestRepository();
 
 const createBook = new createBookUseCase(bookTestRepo);
 const getBooks = new getBooksUseCase(bookTestRepo);
+const deleteBook = new deleteBookUseCase(bookTestRepo);
 
 describe("Module - Book", () => {
   describe("Create Book", () => {
@@ -54,5 +56,19 @@ describe("Module - Book", () => {
     it("should get all books", async () => {
       await expect(getBooks.execute()).resolves.not.toThrow();
     });
+  });
+
+  describe("Delete Book", () => {
+    it("should delete book", async () => {
+      await expect(deleteBook.execute("1")).resolves.not.toThrow();
+    });
+
+    it("should fail if id is missing", async () => {
+      await expect(deleteBook.execute("")).rejects.toThrow();
+    })
+
+    it("should fail if id is invalid", async () => {
+      await expect(deleteBook.execute("a")).rejects.toThrow();
+    })
   });
 });

@@ -30,7 +30,7 @@ export class BookRepository implements IBookRepository {
     });
   }
 
-  async findByIdAndUpdate({ id, ...data }: Book): Promise<Book> {
+  async findByIdAndUpdate(id: number, data: Book): Promise<Book> {
     const result = await prisma.book.update({
       where: {
         id,

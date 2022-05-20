@@ -29,8 +29,8 @@ export class BookTestRepository implements IBookRepository {
     return Promise.reject("Book not found");
   }
 
-  async findByIdAndUpdate(data: Book): Promise<Book> {
-    if (bookTest.id == data.id) {
+  async findByIdAndUpdate(id: number, data: Book): Promise<Book> {
+    if (bookTest.id == id) {
       return { ...bookTest, ...data };
     }
     return Promise.reject("Book not found");
